@@ -25,7 +25,7 @@
     </ul>
   </div>
 </template>
-
+//jjjjjjj
 <script setup>
 import { ref } from 'vue';
 import '@iconify/iconify';
@@ -56,7 +56,8 @@ function selectFullYear() {
   overflow-y: auto;
   background-color: #343a40;
   color: white;
-  border-radius: 0; /* Remove rounded corners */
+  border-radius: 0;
+  /* Remove rounded corners */
 }
 
 .grid-container {
@@ -73,7 +74,8 @@ function selectFullYear() {
   padding: 1px 0;
   margin: 0;
   color: white;
-  border-radius: 0; /* Remove rounded corners */
+  border-radius: 0;
+  /* Remove rounded corners */
 }
 
 .full-year {
@@ -81,7 +83,8 @@ function selectFullYear() {
   width: 100%;
   text-align: center;
   color: white;
-  border-radius: 0; /* Remove rounded corners */
+  border-radius: 0;
+  /* Remove rounded corners */
 }
 
 .year-text {
