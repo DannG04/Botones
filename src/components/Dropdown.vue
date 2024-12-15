@@ -26,6 +26,7 @@
   </div>
 </template>
 //jjjjjjj
+//gg
 <script setup>
 import { ref } from 'vue';
 import '@iconify/iconify';
