@@ -33,7 +33,7 @@ function onChangeStates(flag) {
 }
 
 .dark-theme.btn-primary:hover {
-  background-color: #666;
+  background-color: #0c0808;
   border-color: #555;
 }
 </style>

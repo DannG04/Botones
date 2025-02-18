@@ -16,8 +16,8 @@ function onFullYear(year) {
 </script>
 
 <template>
-  <EntradaSalida @on-toggle="onChange" />
-  <Dropdown @onDateMonthChanged="onDateMonthChanged" @onFullYear="onFullYear" />
+    <EntradaSalida @on-toggle="onChange" />
+    <Dropdown @onDateMonthChanged="onDateMonthChanged" @onFullYear="onFullYear" />
 </template>
 
 <style scoped></style>
