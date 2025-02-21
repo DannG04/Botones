@@ -5,7 +5,7 @@ const state = ref(true);
 const label = ref("Entrada")
 function onChangeStates(flag) {
   state.value = !flag
-  console.log('state.value: ', state.value);
+  console.log('Estado Toggle: ', state.value);
   label.value = state.value ? "Entrada" : "Salida";
   emit("onToggle", state.value);
 }

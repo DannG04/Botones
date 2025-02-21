@@ -30,16 +30,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+import Iconify from '@iconify/iconify';
 
+
+import { ref, defineEmits } from 'vue';
+const anio = defineProps({
+  year: {
+    type: Number,
+    default: new Date().getFullYear()
+  },
+  month: {
+    type: Number,
+    default: new Date().getMonth() + 1
+  }
+});
 const currentYear = ref(new Date().getFullYear());
-const selectedLabel = ref('Seleccionar Mes/Año');
-const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic'];
-const emit = defineEmits(['onDateMonthChanged', 'onFullYear']);
+const months = Array.from({ length: 12 },(_,i)=>new Date(0,i).toLocaleString('es-ES', { month: 'long' }).slice(0,1).toLocaleUpperCase()+new Date(0,i).toLocaleString('es-ES', { month: 'long' }).slice(1,3));
+const selectedLabel = ref((months[anio.month-1]) + " " + anio.year);
+const emit = defineEmits(['onDateMonthChanged', 'onFullYear', 'onChangeAnio']);
+
+
 
 function changeYear(direction) {
+  emit('onChangeAnio',currentYear.value + direction);  
   currentYear.value += direction;
-  
 }
 
 function selectMonth(monthIndex) {
@@ -65,6 +81,7 @@ function closeDropdown() {
     }
   }
 }
+
 </script>
 
 <style scoped>
