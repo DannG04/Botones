@@ -1,10 +1,9 @@
-
 <script setup>
-import { format } from 'date-fns';
+import { format, getDaysInMonth } from 'date-fns';
 import { es } from 'date-fns/locale';
 import Iconify from '@iconify/iconify';
 
-import { ref, defineEmits, defineProps } from 'vue';
+import { ref, defineEmits, defineProps, computed } from 'vue';
 
 const props = defineProps({
   year: {
@@ -23,10 +22,15 @@ const props = defineProps({
 
 const currentYear = ref(props.year);
 const currentMonth = ref(props.month);
+const selectedDay = ref(props.day);
 const months = Array.from({ length: 12 }, (_, i) => format(new Date(0, i), 'MMM', { locale: es }));
-const daysNumber = Array.from({ length: 31 }, (_, i) => i + 1);
-const selectedLabel = ref(`${props.day} ${months[currentMonth.value - 1]} ${currentYear.value}`);
-const emit = defineEmits(['onDateMonthChanged', 'onFullYear', 'onChangeAnio']);
+const selectedLabel = ref(`${selectedDay.value} ${months[currentMonth.value - 1]} ${currentYear.value}`);
+const emit = defineEmits(['onDateMonthChanged', 'onFullYear', 'onChangeAnio', 'onChangeDay']);
+
+const daysNumber = computed(() => {
+  const daysInMonth = getDaysInMonth(new Date(currentYear.value, currentMonth.value - 1));
+  return Array.from({ length: daysInMonth }, (_, i) => format(new Date(currentYear.value, currentMonth.value - 1, i + 1), 'd', { locale: es }));
+});
 
 function changeYear(direction) {
   currentYear.value += direction;
@@ -48,6 +52,7 @@ function changeMonth(direction) {
 }
 
 function selectDay(day) {
+    selectedDay.value = day;
     selectedLabel.value = `${day} ${months[currentMonth.value - 1]} ${currentYear.value}`;
     emit('onChangeDay', day);
     closeDropdown();
@@ -60,7 +65,7 @@ function selectFullYear() {
 }
 
 function updateSelectedLabel() {
-  selectedLabel.value = `${months[currentMonth.value - 1]} ${currentYear.value}`;
+  selectedLabel.value = `${selectedDay.value} ${months[currentMonth.value - 1]} ${currentYear.value}`;
 }
 
 function closeDropdown() {
@@ -78,7 +83,7 @@ function closeDropdown() {
 
 <template>
   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle text-capitalize" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+    <button class="btn buttonW btn-secondary dropdown-toggle text-capitalize" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
       aria-expanded="false">
       <iconify-icon icon="mdi:calendar" :width="15" inline />
       {{ selectedLabel }}
@@ -96,7 +101,7 @@ function closeDropdown() {
       </li>
       <li class="dropdown-item">
         <div class="grid-container">
-          <div v-for="(day, index) in daysNumber" :key="index" class="grid-item">
+          <div v-for="day in daysNumber" :key="day" class="grid-item">
             <a @click.prevent="selectDay(day)" class="day-cell d-flex align-items-center justify-content-center">{{ day }}</a>
           </div>
         </div>
@@ -110,9 +115,10 @@ function closeDropdown() {
 
 <style scoped>
 .dropdown-menu {
-  max-height: 100%;
+  max-height: 320px;
   background-color: #16a34a;
   color: white;
+  padding: 10px;
 }
 
 .butonVerde {
@@ -120,15 +126,15 @@ function closeDropdown() {
   color: white;
   border-radius: 0;
   border-color: #16a34a;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 5px;
+  padding-bottom: 0px;
+
 }
 
 .dropdown-item {
-    background-color: #16a34a;
-    color: white;
-    width: 100%;
-    height: 100%;
+  background-color: #16a34a;
+  color: white;
+  padding: 0; 
 }
 
 .dropdown div {
@@ -137,26 +143,37 @@ function closeDropdown() {
   color: white;
   border-radius: 0;
   text-align: center;
+  padding-top: 0px;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(7, 40px);
-  gap: 1px;
+  grid-template-columns: repeat(7, 1fr); 
+  gap: 0; 
+  padding: 5px;
+  padding-bottom: 0px; 
 }
 
 .grid-item {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
+  padding: 0px;
+  margin: 0px;
+  gap: 0;
+  
 }
 
 .day-cell {
   color: white;
   background-color: #16a34a;
-  display: inline-block;  
-  width: 100%;
-  height: 100%;
-  /* vertical-align: middle; */
+  display: block;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px; 
+  font-size: 14px;
+  height: 35px;
+  padding: 0px; 
+  margin: 0px; 
 }
 
 .day-cell:hover {
@@ -171,17 +188,30 @@ function closeDropdown() {
   text-align: center;
   background-color: #16a34a;
   color: white;
-  border-radius: 0;
-
+  border-radius: 5px; 
+  padding: 0px; 
 }
 
 .full-year:hover {
   background-color: #0e5e2c;
 }
 
-.year-text, .month-text {
-  color: white;
-  min-width: 10px;
-  max-height: 10px;
+.year-text {
+  font-size: 14px;
+  padding: 10px;
+}
+.month-text {
+  font-size: 14px;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 50px; 
+  display: inline-block;
+  text-align: center;
+}
+
+.buttonW{
+  width: 150px; 
+  display: inline-block;
+  text-align: center;
 }
 </style>

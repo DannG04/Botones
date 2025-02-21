@@ -21,6 +21,7 @@ function onChangeDay(day) {
 
 
 function onChangeAnio(anio) {
+  anioHoy.value= new Date(anio).getFullYear();
   console.log(`Año seleccionado: ${anio}`);
 }
 
@@ -41,6 +42,7 @@ function onFullYear(year) {
     <Dropdown :year="anioHoy" :month="mesHoy" @onDateMonthChanged="onDateMonthChanged" @onFullYear="onFullYear"  @onChangeAnio="onChangeAnio"/>
     <div/>
     <h2>Dropdown Dias</h2><br/>
+    <DropdownDias :day="diaHoy" :year="anioHoy" :month="mesHoy"  @onFullYear="onFullYear" @onChangeAnio="onChangeAnio" @onDateMonthChanged="onDateMonthChanged" @onChangeDay="onChangeDay"/>
     <DropdownDias :day="diaHoy" :year="anioHoy" :month="mesHoy"  @onFullYear="onFullYear" @onChangeAnio="onChangeAnio" @onDateMonthChanged="onDateMonthChanged" @onChangeDay="onChangeDay"/>
 </template>
 <style scoped></style>
