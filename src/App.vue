@@ -3,6 +3,8 @@ import EntradaSalida from './components/EntradaSalida.vue';
 import Dropdown from './components/Dropdown.vue';
 import { computed, ref } from 'vue';
 import DropdownDias from './components/DropdownDias.vue';
+import PhoneNumber from './components/PhoneNumber.vue';
+import NameField from './components/NameField.vue';
 const fecha = ref(new Date());
 const anioHoy = computed(()=>{
   return fecha.value.getFullYear();
@@ -44,5 +46,7 @@ function onFullYear(year) {
     <h2>Dropdown Dias</h2><br/>
     <DropdownDias :day="diaHoy" :year="anioHoy" :month="mesHoy"  @onFullYear="onFullYear" @onChangeAnio="onChangeAnio" @onDateMonthChanged="onDateMonthChanged" @onChangeDay="onChangeDay"/>
     <DropdownDias :day="diaHoy" :year="anioHoy" :month="mesHoy"  @onFullYear="onFullYear" @onChangeAnio="onChangeAnio" @onDateMonthChanged="onDateMonthChanged" @onChangeDay="onChangeDay"/>
-</template>
+    <PhoneNumber initialNumber="9515108874"/>
+    <NameField/>
+    </template>
 <style scoped></style>

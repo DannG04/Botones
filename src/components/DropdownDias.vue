@@ -148,7 +148,7 @@ function closeDropdown() {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); 
+  grid-template-columns: repeat(6, 1fr); 
   gap: 0; 
   padding: 5px;
   padding-bottom: 0px; 

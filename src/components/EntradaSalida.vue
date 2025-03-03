@@ -10,7 +10,6 @@ function onChangeStates(flag) {
   emit("onToggle", state.value);
 }
 </script>
-
 <template>
   <div>
     <button type="button" class="btn btn-primary dark-theme" data-bs-toggle="button" autocomplete="off"
